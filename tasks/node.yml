@@ -1,0 +1,11 @@
+- name: Install node
+  pacman:
+    name: ['nodejs', 'npm']
+  tags:
+    - node
+- name: Install yarn
+  npm:
+    name: yarn
+    global: yes
+  tags:
+    - node
