@@ -1,12 +1,16 @@
 - hosts: localhost
   become: true
-  pre_tasks: 
+  pre_tasks:
    - name: Update cache
      pacman:
        update_cache: true
      tags:
      - node
      - zsh
+     - neovim
   tasks:
   - include: tasks/zsh.yml
   - include: tasks/node.yml
+  - include: tasks/nvim.yml
+  - name: Execute zsh
+    shell: "zsh"
