@@ -5,12 +5,6 @@
      pacman:
        update_cache: true
      tags:
-     - node
-     - zsh
-     - neovim
+     - base
   tasks:
-  - include: tasks/zsh.yml
-  - include: tasks/node.yml
-  - include: tasks/nvim.yml
-  - name: Execute zsh
-    shell: "zsh"
+  - include_tasks: tasks/base.yml
