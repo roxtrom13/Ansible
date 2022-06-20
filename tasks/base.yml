@@ -1,5 +1,10 @@
 - name: Install git
-  pacman: name=git,cmatrix
+  pacman: name=git,base-devel
+  tags:
+    - base
+
+- name: Install yay
+  shell: pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
   tags:
     - base
 
@@ -9,7 +14,7 @@
     - base
 
 - name: Install utils
-  pacman: name=neofetch,nitrogen,cmake,xclip,pavucontrol,stow,rofi,ninja,scrot
+  pacman: name=neofetch,nitrogen,cmake,xclip,pavucontrol,stow,rofi,ninja,scrot,pcmanfm,celluloid,gimp,keepassxc
   tags:
     - base
 
@@ -27,28 +32,39 @@
   pacman: name=pavucontrol,nvidia
   tags:
     - base
+
 - name: Install LSP packages
   pacman: name=clang,gopls
   tags:
     - base
+
+- name: Install Vim Plug
+  shell: sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  tags:
+    - base
+
 - name: Change shell
   shell: chsh -s `which zsh`
   tags:
     - zsh
+
 - name: Install oh-my-zsh
   shell: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   tags:
     - zsh
+
 - name: Change shell
   shell: chsh -s `which zsh`
   tags:
     - zsh
+
 - name: Install zsh autosuggestions
   ansible.builtin.git:
     repo: "https://github.com/zsh-users/zsh-autosuggestions"
     dest: "~/.oh-my-zsh/plugins/zsh-autosuggestions"
   tags:
     - zsh
+
 - name: Update zshrc
   shell: sed -i 's/(git/(git zsh-autosuggestions/' ~/.zshrc
   tags:
